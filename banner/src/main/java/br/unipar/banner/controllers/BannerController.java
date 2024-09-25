@@ -56,8 +56,8 @@ public class BannerController {
                 return ResponseEntity.notFound().build();
             }
 
-            banner.setIsActive(false); // Desativa o banner
-            Banner updatedBanner = bannerService.update(banner); // Use um método apropriado para atualizar o banner
+            banner.setIsActive(false);
+            Banner updatedBanner = bannerService.update(banner);
 
             return ResponseEntity.ok(updatedBanner);
         } catch (Exception e) {
