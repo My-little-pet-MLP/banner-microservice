@@ -1,24 +1,13 @@
 package br.unipar.banner.controllers;
 
 import br.unipar.banner.dto.BannerDTO;
-import br.unipar.banner.exceptions.BannerNotFoundException;
-import br.unipar.banner.images.ImageStorageProperties;
 import br.unipar.banner.model.Banner;
 import br.unipar.banner.service.BannerService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import br.unipar.banner.exceptions.ImageNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
