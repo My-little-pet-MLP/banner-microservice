@@ -1,18 +1,14 @@
-FROM wurstmeister/kafka:latest
+# Usando uma imagem do OpenJDK
+FROM openjdk:17-jdk-slim
 
-# Configurações do Kafka
-ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://0.0.0.0:9092
-ENV KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
-ENV KAFKA_CREATE_TOPICS=banners:1:1
-ENV KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-ENV KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-ENV KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+# Diretório de trabalho
+WORKDIR /app
 
-# Expõe a porta 9092
+# Copia o arquivo JAR para o diretório de trabalho
+COPY target/banner.jar app.jar
+
+# Expõe a porta que sua aplicação Spring Boot está usando
 EXPOSE 9092
 
-# Copia o arquivo de configuração do Kafka para o container
-COPY server.properties /opt/kafka/config/server.properties
-
-# Comando para iniciar o Kafka
-CMD ["/opt/kafka/bin/kafka-server-start.sh", "/opt/kafka/config/server.properties"]
+# Comando para executar a aplicação
+CMD ["java", "-jar", "app.jar"]
