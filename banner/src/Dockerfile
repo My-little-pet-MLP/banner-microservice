@@ -13,5 +13,5 @@ EXPOSE 9092
 # COPY start-kafka.sh /usr/bin/start-kafka.sh
 # RUN chmod +x /usr/bin/start-kafka.sh
 
-CMD ["/opt/kafka/bin/kafka-server-start.sh", "/opt/kafka/config/server.properties"]
+CMD ["/opt/kafka/bin/kafka-server-start.sh", "/src/server.properties"]
 
