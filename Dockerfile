@@ -1,5 +1,5 @@
 # Etapa de construção
-FROM maven:3.3.2-openjdk-21 AS builder
+FROM maven:4.0.0-openjdk-21 AS builder
 
 WORKDIR /app
 COPY . .
