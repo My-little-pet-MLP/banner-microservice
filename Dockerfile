@@ -1,24 +1,21 @@
 # Etapa de construção
-FROM maven:3.9.4-openjdk-21 AS builder
+FROM ubunto:latest AS builder
 
-WORKDIR /app
+RUN apt-get update
+RUN apt-get install openjdk-21-jdk -y
 COPY . .
 
 # Construir o binário da aplicação
-RUN mvn clean package -DskipTests
+RUN apt-get install maven -y
+RUN mvn clean install
 
 # Etapa final
 FROM openjdk:21-jdk-slim
 
-WORKDIR /app
-
-# Copiar o JAR compilado da etapa de construção
-COPY --from=builder /app/target/*.jar app.jar
-
-# Copiar o arquivo .env se ele existir
-# COPY .env .env
-
 EXPOSE 9092
 
+# Copiar o JAR compilado da etapa de construção
+COPY --from=builder /target/*.jar app.jar
+
 # Comando para executar a aplicação
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
