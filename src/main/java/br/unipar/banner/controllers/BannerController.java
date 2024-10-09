@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,9 +80,24 @@ public class BannerController {
         }
     }
 
-    @GetMapping("/getHelloWorld")
-    public ResponseEntity<String> getHelloWorld() {
-        return ResponseEntity.ok("Hello, World!");
+
+    @Operation(description = "Listar os banners por página")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Listagem com sucesso"),
+            @ApiResponse(responseCode = "400", description = "ID do banner inválido"),
+            @ApiResponse(responseCode = "404", description = "Banner não encontrado com o ID especificado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @GetMapping("/pagina")
+    public Page<Banner> listAllPagina(
+            @RequestParam String lojaId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        // Ajuste para transformar o número da página no formato esperado (0-based index)
+        page = (page > 0) ? page - 1 : 0;
+
+        return bannerService.listAllPagina(lojaId, page, size);
     }
 
 }
