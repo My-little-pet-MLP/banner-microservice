@@ -25,20 +25,26 @@ public class BannerService {
         banner.setId(UUID.randomUUID());
         banner.setTitle(bannerDTO.getTitle());
         banner.setImageUrl(bannerDTO.getImageUrl());
-        banner.setIsActive(bannerDTO.isActive());
+        banner.setIsActive(false);
         banner.setPaid(bannerDTO.isPaid());
         banner.setExternLink(bannerDTO.getExternLink());
 
         Date createdAt = new Date();
         banner.setCreatedAt(createdAt);
 
+        // Calcular o valor do crédito (R$ 5,00 por dia)
+        int diasDeExibicao = bannerDTO.getCredit(); // quantidade de dias de exibição fornecidos
+        double valorCredito = diasDeExibicao * 5.0; // R$ 5,00 por dia
+        banner.setCredit(valorCredito);
+
+        // Calcular a data de expiração (deadline)
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(createdAt);
-        calendar.add(Calendar.DAY_OF_MONTH, bannerDTO.getCredit()); // Adicionar o crédito em dias
+        calendar.add(Calendar.DAY_OF_MONTH, diasDeExibicao); // Adicionar o crédito em dias
         Date deadLine = calendar.getTime();
         banner.setDeadLine(deadLine);
-        
-        banner.setNumberOfClicks(bannerDTO.getNumberOfClicks());
+
+        banner.setNumberOfClicks(0);
         banner.setLojaId(bannerDTO.getLojaId());
 
         return bannerRepository.save(banner);

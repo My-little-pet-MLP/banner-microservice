@@ -23,7 +23,7 @@ public class Banner {
     private boolean isPaid = false;
 
     private String externLink;
-    private int credit;
+    private double credit;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -39,7 +39,7 @@ public class Banner {
     }
 
     public Banner(int numberOfClicks, Date deadLine, Date createdAt,
-                  int credit, String externLink, boolean isPaid,
+                  double credit, String externLink, boolean isPaid,
                   boolean isActive, String imageUrl, String title, UUID id, String lojaId) {
         this.numberOfClicks = numberOfClicks;
         this.deadLine = deadLine;
@@ -102,11 +102,11 @@ public class Banner {
         this.externLink = externLink;
     }
 
-    public int getCredit() {
+    public double getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(double credit) {
         this.credit = credit;
     }
 
