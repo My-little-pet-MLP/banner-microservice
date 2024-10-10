@@ -14,5 +14,5 @@ public interface BannerRepository extends JpaRepository<Banner, UUID> {
 
     List<Banner> findByLojaId(String lojaId);
     List<Banner> findByIsActiveTrue();
-    Page<Banner> findAllByLojaId(String lojaId, Pageable pageable);
+    Page<Banner> findByLojaId(String lojaId, Pageable pageable);
 }
