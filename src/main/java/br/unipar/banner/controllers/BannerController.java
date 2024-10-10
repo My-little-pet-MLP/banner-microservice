@@ -124,4 +124,20 @@ public class BannerController {
         return ResponseEntity.ok(banners);
     }
 
+    @Operation(summary = "Busca um banner por ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Banner encontrado com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Banner.class))),
+            @ApiResponse(responseCode = "404", description = "Banner não encontrado",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Erro no servidor",
+                    content = @Content)
+    })
+    @GetMapping("/{bannerId}")
+    public ResponseEntity<Banner> findById(@PathVariable UUID bannerId) {
+        Banner banner = bannerService.findById(bannerId);
+        return ResponseEntity.ok(banner);
+    }
+
 }

@@ -73,4 +73,10 @@ public class BannerService {
         }
         return banners;
     }
+
+    public Banner findById(UUID id) {
+        return bannerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Banner não encontrado com o id: " + id));
+    }
+
 }
