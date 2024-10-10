@@ -93,7 +93,7 @@ public class BannerController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Banner.class))),
             @ApiResponse(responseCode = "404", description = "Banner não encontrado",
-                    content = @Content),
+                    content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "500", description = "Erro no servidor",
                     content = @Content)
     })
